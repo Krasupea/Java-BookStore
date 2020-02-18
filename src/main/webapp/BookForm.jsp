@@ -14,10 +14,26 @@
 	</ul>
 
 <div class="container">
+    <c:if> test="${book != null}">
+    <form> name="book_form" method="post" action="update">
+    </c:if>
+    <c:if> test="${book == null}">
     <form name="book_form" method="post" action="insert">
+    </c:if>
     <h2>
+    <c:if> test="${book != null}">
+        Edit Book Form
+    </c:if>
+    <c:if> test="${book == null}">
         New Book Form
+    </c:if>
     </h2>
+     <c:if> test="${book != null}">
+     <input type="hidden" name="id" value="<c:out value='${book.id}' />" />
+     </c:if>
+     <input type="hidden" name="booktitle" value="<c:out value='${book.title}' />" />
+     <input type="hidden" name="bookauthor" value="<c:out value='${book.author}' />" />
+     <input type="hidden" name="bookprice" value="<c:out value='${book.price}' />" />
 	  <p><label>Title:</label>
     <input type="text" name="booktitle" /></p>
 	  <p><label>Author:</label>

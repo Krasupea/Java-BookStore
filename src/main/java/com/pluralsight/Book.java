@@ -7,8 +7,8 @@ public class Book {
 	float price;
 
 	public Book(String title, String author, float price) {
-		this.title = title;
-		this.author = author;
+		this.title = this.title;
+		this.author = this.author;
 		this.price = price;
 	}
 
