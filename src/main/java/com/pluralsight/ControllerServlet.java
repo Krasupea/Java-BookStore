@@ -54,22 +54,25 @@ public class ControllerServlet extends HttpServlet {
 			switch(action) {
 				case "/admin":
 					 showBookAdmin(request, response);
-           break;
+					 break;
 			  case "/new":
 					showNewForm(request, response);
-          break;
+					break;
 				case "/insert":
 					insertBook(request, response);
-          break;
+					break;
 				case "/delete":
 					deleteBook(request,response);
-				break;
+					break;
 				case "/edit":
 					showEditForm(request, response);
-				break;
+					break;
+				case "/update":
+					updateBook(request,response);
+					break;
         default:
 				   listBooks(request, response);
-           break;
+		break;
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -125,7 +128,7 @@ public class ControllerServlet extends HttpServlet {
 	}
 
 	private void deleteBook(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
+			throws ServletException, IOException {
 
 		int id = Integer.parseInt(request.getParameter("id"));
 
@@ -142,6 +145,22 @@ public class ControllerServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/BookForm.jsp");
 		request.setAttribute("book", existingBook);
 		dispatcher.forward(request, response);
+
+	}
+
+	private void updateBook(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		int id = Integer.parseInt(request.getParameter("id"));
+		String title = request.getParameter("booktitle");
+		String author = request.getParameter("bookauthor");
+		Float price = Float.parseFloat(request.getParameter("bookprice"));
+
+		Book editBook = new Book(id,title,author,price);
+		bookDAO.updateBook(editBook);
+
+		response.sendRedirect("list");
+
 
 	}
 }
